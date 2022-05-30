@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->string('telephone', 11);
+            $table->string('telephone', 15);
             $table->date('joined_at');
             $table->foreignId('sales_route_id')->constrained('sales_routes');
             $table->foreignId('sales_manager_id')->constrained('users');
