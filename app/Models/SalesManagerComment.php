@@ -10,6 +10,17 @@ class SalesManagerComment extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'comment',
+        'commentor_id',
+        'sales_representative_id'
+    ];
+
+    /**
      * Get the sales representative that owns the comment.
      */
     public function salesRepresentative()

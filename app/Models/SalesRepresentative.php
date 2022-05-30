@@ -11,6 +11,20 @@ class SalesRepresentative extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'telephone',
+        'joined_at',
+        'sales_route_id',
+        'sales_manager_id'
+    ];
+
+    /**
      * Get the sales manager that manage the sales representative.
      */
     public function salesManager()
