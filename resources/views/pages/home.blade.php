@@ -132,7 +132,8 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" method="POST" 
-                            action="#" name="add_sales_rep_form">
+                            action="{{ route('store_sales_rep') }}" name="add_sales_rep_form">
+                            @csrf
                             <div class="row form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                 <div class="col-3">
                                     <label for="name" class=" form-control-label">Name</label>
@@ -141,8 +142,8 @@
                                     <input type="text" id="name" name="name" placeholder="Name"
                                         value="{{ old('name') }}" class="form-control">
                                     @if ($errors->has('name'))
-                                        <span class="label label-danger">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                        <span class="label text-danger">
+                                            {{ $errors->first('name') }}
                                         </span>
                                     @endif
                                 </div>
@@ -155,8 +156,8 @@
                                     <input type="email" id="email" name="email" value="{{ old('email') }}"
                                         class="form-control" placeholder="Email">
                                     @if ($errors->has('email'))
-                                        <span class="label label-danger">
-                                            <strong>{{ $errors->first('email') }}</strong>
+                                        <span class="label text-danger">
+                                            {{ $errors->first('email') }}
                                         </span>
                                     @endif
                                 </div>
@@ -169,8 +170,8 @@
                                     <input type="tel" id="telephone" name="telephone" value="{{ old('telephone') }}"
                                         class="form-control" placeholder="Telephone">
                                     @if ($errors->has('telephone'))
-                                        <span class="label label-danger">
-                                            <strong>{{ $errors->first('telephone') }}</strong>
+                                        <span class="label text-danger">
+                                            {{ $errors->first('telephone') }}
                                         </span>
                                     @endif
                                 </div>
@@ -182,10 +183,9 @@
                                 <div class="col-9">
                                     <input type="date" id="joined_at" value="{{ old('joined_at') }}"
                                         name="joined_at" class="form-control">
-
                                     @if ($errors->has('joined_at'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('joined_at') }}</strong>
+                                        <span class="label text-danger">
+                                        {{ $errors->first('joined_at') }}
                                         </span>
                                     @endif
                                 </div>
@@ -195,19 +195,21 @@
                                     <label for="sales_route_id" class=" form-control-label">Sales Route</label>
                                 </div>
                                 <div class="col-9">
-                                    <select class="form-control" id="sales_route_id">
-                                        <option value="null">Select Sale Route</option>
+                                    <select class="form-control" id="sales_route_id" name="sales_route_id">
+                                        <option value="">Select Sale Route</option>
                                         @foreach($salesRoutes as $index => $salesRoute)
                                         <option value="{{$salesRoute->id}}">{{$salesRoute->route}}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('sales_route_id'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('sales_route_id') }}</strong>
+                                        <span class="label text-danger">
+                                            {{ $errors->first('sales_route_id') }}
                                         </span>
                                     @endif
                                 </div>
                             </div>
+                            <!-- Sale manager ID was hard coded, later to be dynamic with auth -->
+                            <input type="hidden" value="1" name="sales_manager_id" />
                             <div class="row">
                                 <div class="col"></div>
                                 <div class="col-9">

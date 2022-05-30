@@ -11,4 +11,7 @@
     <div class="container p-5">
         @yield('content')
     </div>
+    <script>
+        $('#addSalesRep').modal({ 'show' : {{ count($errors) > 0 ? 'true' : 'false' }}  });
+    </script>
 </body>

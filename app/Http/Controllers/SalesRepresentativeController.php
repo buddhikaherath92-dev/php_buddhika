@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreSalesRepresentativeRequest;
 use App\Models\SalesRoute;
 use App\Models\SalesRepresentative;
 
@@ -23,4 +24,18 @@ class SalesRepresentativeController extends Controller
             ->paginate(10)
         ]);
     }
+
+    /**
+     * Store a new sales representative.
+     *
+     * @param  App\Requests\StoreSalesRepresentativeRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreSalesRepresentativeRequest $request)
+    {
+        $validated = $request->validated();
+        $salesRepresentative = SalesRepresentative::create($validated);
+        return back();
+    }
+
 }

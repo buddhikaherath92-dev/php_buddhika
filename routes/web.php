@@ -16,3 +16,4 @@ use App\Http\Controllers\SalesRepresentativeController;
 */
 
 Route::get('/', [SalesRepresentativeController::class, 'index'])->name('home');
+Route::post('/post', [SalesRepresentativeController::class, 'store'])->name('store_sales_rep');
