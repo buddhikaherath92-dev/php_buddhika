@@ -7,7 +7,10 @@
         </span>
         <span class="float-right">
             <button type="button" class="btn btn-sm btn-info mr-1">Refresh</button>
-            <button type="button" class="btn btn-sm btn-primary">Add New</button>
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" id="open-add-new-modal" 
+                data-target="#addSalesRep">
+                Add New
+            </button>
         </span>
     </div>
     <div class="row">
@@ -116,8 +119,105 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    <!-- Add Sales Rep Modal -->
+    <div class="modal" id="addSalesRep">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add New Sales Team Member</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" method="POST" 
+                            action="#" name="add_sales_rep_form">
+                            <div class="row form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="name" class=" form-control-label">Name</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" id="name" name="name" placeholder="Name"
+                                        value="{{ old('name') }}" class="form-control">
+                                    @if ($errors->has('name'))
+                                        <span class="label label-danger">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="email" class=" form-control-label">Email</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="email" id="email" name="email" value="{{ old('email') }}"
+                                        class="form-control" placeholder="Email">
+                                    @if ($errors->has('email'))
+                                        <span class="label label-danger">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group{{ $errors->has('telephone') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="telephone" class=" form-control-label">Telephone</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="tel" id="telephone" name="telephone" value="{{ old('telephone') }}"
+                                        class="form-control" placeholder="Telephone">
+                                    @if ($errors->has('telephone'))
+                                        <span class="label label-danger">
+                                            <strong>{{ $errors->first('telephone') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group{{ $errors->has('joined_at') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="joined_at" class=" form-control-label">Joined At</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="date" id="joined_at" value="{{ old('joined_at') }}"
+                                        name="joined_at" class="form-control">
+
+                                    @if ($errors->has('joined_at'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('joined_at') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group{{ $errors->has('sales_route_id') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="sales_route_id" class=" form-control-label">Sales Route</label>
+                                </div>
+                                <div class="col-9">
+                                    <select class="form-control" id="sales_route_id">
+                                        <option value="null">Select Sale Route</option>
+                                        @foreach($salesRoutes as $index => $salesRoute)
+                                        <option value="{{$salesRoute->id}}">{{$salesRoute->route}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('sales_route_id'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('sales_route_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col-9">
+                                    <button type="submit" class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                    <button class="btn btn-info" type="refresh" >Refresh</button>
+                                </div>
+                            </div>
+                    </form>
                 </div>
             </div>
         </div>
