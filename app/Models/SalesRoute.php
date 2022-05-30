@@ -18,4 +18,12 @@ class SalesRoute extends Model
         'route'
     ];
 
+    /**
+     * Get the sales manager that manage the sales representative.
+     */
+    public function salesRepresentative()
+    {
+        return $this->belongsToMany(SalesRepresentative::class);
+    }
+
 }

@@ -19,7 +19,8 @@ class SalesRepresentativeController extends Controller
             // getting all sales route for the add new sales representative -> sales route drop down
             'salesRoutes' => SalesRoute::all(),
             // passing a hard coded value '1' temporaly untill authentication module implemented
-            'salesRepresentatives' => SalesRepresentative::where('sales_manager_id', 1)->paginate(10)
+            'salesRepresentatives' => SalesRepresentative::where('sales_manager_id', 1)->with('salesRoute')->with('latestComment')
+            ->paginate(10)
         ]);
     }
 }

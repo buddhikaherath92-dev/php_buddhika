@@ -40,12 +40,20 @@ class SalesRepresentative extends Model
         return $this->hasMany(SalesManagerComment::class);
     }
 
-     /**
-     * Get the sales route associated with the sales representative.
-     */
+    /**
+    * Get the sales route associated with the sales representative.
+    */
     public function salesRoute()
     {
-        return $this->hasOne(SalesRoute::class);
+        return $this->hasOne(SalesRoute::class, 'id');
+    }
+
+    /**
+    * Get the latest comment for sales representative.
+    */
+    public function latestComment()
+    {
+        return $this->hasOne(SalesManagerComment::class)->latestOfMany();
     }
 
 }
