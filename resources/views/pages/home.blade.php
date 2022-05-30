@@ -20,14 +20,24 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Telephone #</th>
-                    <th>Sales Route</th>
+                    <th>Joined Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                
+                @foreach($salesRepresentatives as $index => $salesRepresentative)
+                    <tr>
+                        <td>{{$salesRepresentative->id}}</td>
+                        <td>{{$salesRepresentative->name}}</td>
+                        <td>{{$salesRepresentative->email}}</td>
+                        <td>{{$salesRepresentative->telephone}}</td>
+                        <td>{{$salesRepresentative->joined_at}}</td>
+                        <td></td>
+                    </tr>
+                @endforeach
             </tbody>
             </table>
+            {{ $salesRepresentatives->links() }}
         </div>
       </div>  
     </div>
