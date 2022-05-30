@@ -41,4 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the sales representatives of sales mananger User.
+     */
+    public function salesRepresentatives()
+    {
+        return $this->hasMany(SalesRepresentative::class);
+    }
+
+    /**
+     * Get the comments made by sales mananger User.
+     */
+    public function comments()
+    {
+        return $this->morphMany(SalesManagerComment::class, 'commentor');
+    }
+
 }
