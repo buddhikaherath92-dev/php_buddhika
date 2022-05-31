@@ -48,6 +48,18 @@
                             >
                                 View
                             </button>
+                            <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" id="open-edit-modal" 
+                            data-target="#editSalesRep"
+                            data-id="{{$salesRepresentative->id}}"
+                            data-name="{{$salesRepresentative->name}}" 
+                            data-email="{{$salesRepresentative->email}}"
+                            data-telephone="{{$salesRepresentative->telephone}}"
+                            data-joined_at="{{$salesRepresentative->joined_at}}"
+                            data-sales_route="{{$salesRepresentative->salesRoute?->id}}"
+                            data-comment="{{$salesRepresentative->latestComment?->comment}}"
+                            >
+                                Edit
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -229,7 +241,123 @@
                                     <button type="submit" class="btn btn-primary">
                                         Submit
                                     </button>
-                                    <button class="btn btn-info" type="refresh" >Refresh</button>
+                                    <button class="btn btn-info" type="reset" >Refresh</button>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Sales Rep Modal -->
+    <div class="modal" id="editSalesRep">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Sales Team Member</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" method="POST"
+                                action="" name="edit_sales_rep_form" id="edit_sales_rep_form">
+                                @method('PUT')
+                                @csrf
+                                <div class="row form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="edit_name" class=" form-control-label">Name</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" id="edit_name" name="name" placeholder="Name"
+                                        value="{{ old('name') }}" class="form-control">
+                                    @if ($errors->has('name'))
+                                        <span class="label text-danger">
+                                            {{ $errors->first('name') }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="edit_email" class=" form-control-label">Email</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="email" id="edit_email" name="email" value="{{ old('email') }}"
+                                        class="form-control" placeholder="Email">
+                                    @if ($errors->has('email'))
+                                        <span class="label text-danger">
+                                            {{ $errors->first('email') }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group{{ $errors->has('telephone') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="edit_telephone" class=" form-control-label">Telephone</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="tel" id="edit_telephone" name="telephone" value="{{ old('telephone') }}"
+                                        class="form-control" placeholder="Telephone">
+                                    @if ($errors->has('telephone'))
+                                        <span class="label text-danger">
+                                            {{ $errors->first('telephone') }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group{{ $errors->has('joined_at') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="jedit_oined_at" class=" form-control-label">Joined At</label>
+                                </div>
+                                <div class="col-9">
+                                    <input type="date" id="edit_joined_at" value="{{ old('joined_at') }}"
+                                        name="joined_at" class="form-control">
+                                    @if ($errors->has('joined_at'))
+                                        <span class="label text-danger">
+                                        {{ $errors->first('joined_at') }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group{{ $errors->has('sales_route_id') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="edit_sales_route_id" class=" form-control-label">Sales Route</label>
+                                </div>
+                                <div class="col-9">
+                                    <select class="form-control" id="edit_sales_route_id" name="sales_route_id">
+                                        <option value="">Select Sale Route</option>
+                                        @foreach($salesRoutes as $index => $salesRoute)
+                                        <option value="{{$salesRoute->id}}">{{$salesRoute->route}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('sales_route_id'))
+                                        <span class="label text-danger">
+                                            {{ $errors->first('sales_route_id') }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row form-group{{ $errors->has('comment') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="edit_comment" class=" form-control-label">Comment</label>
+                                </div>
+                                <div class="col-9">
+                                    <textarea class="form-control" rows="5" id="edit_comment" name="comment">{{old('comment')}}</textarea>
+                                    @if ($errors->has('comment'))
+                                        <span class="label text-danger">
+                                            {{ $errors->first('comment') }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <!-- Sale manager ID was hard coded, later to be dynamic with auth -->
+                            <input type="hidden" value="1" name="sales_manager_id" />
+                            <input type="hidden" value="" id="edit_id" name="id" />
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col-9">
+                                    <button type="submit" class="btn btn-primary">
+                                        Update
+                                    </button>
                                 </div>
                             </div>
                     </form>
@@ -252,6 +380,24 @@
             document.getElementById("jonedDateViewLabel").innerHTML = joined_date;
             document.getElementById("salesRouteViewLabel").innerHTML = sales_route;
             document.getElementById("latestCommentViewLabel").innerHTML = latest_comment;
+        });
+        $(document).on("click", "#open-edit-modal", function () {
+            var  name = $(this).data('name');
+            var  id = $(this).data('id');
+            var  email = $(this).data('email');
+            var  telephone = $(this).data('telephone');
+            var  joined_date = $(this).data('joined_at');
+            var  sales_route = $(this).data('sales_route');
+            var  latest_comment = $(this).data('comment');
+        
+            document.getElementById("edit_name").value = name;
+            document.getElementById("edit_email").value = email;
+            document.getElementById("edit_telephone").value = telephone;
+            document.getElementById("edit_joined_at").value = joined_date;
+            document.getElementById("edit_sales_route_id").value = sales_route;
+            document.getElementById("edit_comment").value = latest_comment;
+            document.getElementById("edit_id").value = id;
+            $('#edit_sales_rep_form').attr('action', '/post/'+id);
         });
     </script>
 @endsection

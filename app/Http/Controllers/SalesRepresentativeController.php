@@ -48,5 +48,27 @@ class SalesRepresentativeController extends Controller
         return back();
     }
 
+    /**
+     * Update a  sales representative.
+     *
+     * @param  App\Requests\StoreSalesRepresentativeRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(StoreSalesRepresentativeRequest $request, $id)
+    {
+        $validated = $request->validated();
+        $comment = $validated['comment'];
+        unset($validated['comment']);
+        $salesRepresentative = SalesRepresentative::find($id)->update($validated);
+        // todo:: replaced with create when auth has been implemented
+        SalesManagerComment::updateOrCreate([
+            'commentor_id' => 1, //hard coded untill authentication is implemented
+            'sales_representative_id' => $id
+        ], [
+            'comment' => $comment
+        ]);
+        return back();
+    }
+
 
 }
