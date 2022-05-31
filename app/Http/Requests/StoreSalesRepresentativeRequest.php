@@ -29,7 +29,8 @@ class StoreSalesRepresentativeRequest extends FormRequest
             'telephone' => 'required|string|max:15|min:3',
             'joined_at' => 'required|date',
             'sales_route_id' => 'required|integer|exists:App\Models\SalesRoute,id',
-            'sales_manager_id' => 'required|integer|exists:users,id'
+            'sales_manager_id' => 'required|integer|exists:users,id',
+            'comment' => 'nullable|string'
         ];
     }
 }

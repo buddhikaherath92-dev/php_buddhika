@@ -45,7 +45,7 @@ class SalesRepresentative extends Model
     */
     public function salesRoute()
     {
-        return $this->hasOne(SalesRoute::class, 'id');
+        return $this->hasOne(SalesRoute::class, 'id', 'sales_route_id');
     }
 
     /**

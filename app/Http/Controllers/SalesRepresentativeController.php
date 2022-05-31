@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreSalesRepresentativeRequest;
 use App\Models\SalesRoute;
 use App\Models\SalesRepresentative;
+use App\Models\SalesManagerComment;
 
 class SalesRepresentativeController extends Controller
 {
@@ -34,8 +35,18 @@ class SalesRepresentativeController extends Controller
     public function store(StoreSalesRepresentativeRequest $request)
     {
         $validated = $request->validated();
+        $comment = $validated['comment'];
+        unset($validated['comment']);
         $salesRepresentative = SalesRepresentative::create($validated);
+        // todo:: replaced with create when auth has been implemented
+        SalesManagerComment::updateOrCreate([
+            'commentor_id' => 1, //hard coded untill authentication is implemented
+            'sales_representative_id' => $salesRepresentative->id
+        ], [
+            'comment' => $comment
+        ]);
         return back();
     }
+
 
 }

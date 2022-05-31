@@ -208,6 +208,19 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="row form-group{{ $errors->has('comment') ? ' has-error' : '' }}">
+                                <div class="col-3">
+                                    <label for="comment" class=" form-control-label">Comment</label>
+                                </div>
+                                <div class="col-9">
+                                    <textarea class="form-control" rows="5" id="comment" name="comment">{{old('comment')}}</textarea>
+                                    @if ($errors->has('comment'))
+                                        <span class="label text-danger">
+                                            {{ $errors->first('comment') }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                             <!-- Sale manager ID was hard coded, later to be dynamic with auth -->
                             <input type="hidden" value="1" name="sales_manager_id" />
                             <div class="row">
