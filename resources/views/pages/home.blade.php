@@ -60,6 +60,10 @@
                             >
                                 Edit
                             </button>
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" id="open-delete-confirmation"
+                            data-target="#deleteConfirmationModal" data-id="{{$salesRepresentative->id}}">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -365,6 +369,30 @@
             </div>
         </div>
     </div>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteConfirmationModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Delete" below if you are sure to delete the sales representative</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form method="POST" action="" id="delete_sales_rep_form">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                             Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         $(document).on("click", "#open-view-modal", function () {
             var  name = $(this).data('name');
@@ -398,6 +426,10 @@
             document.getElementById("edit_comment").value = latest_comment;
             document.getElementById("edit_id").value = id;
             $('#edit_sales_rep_form').attr('action', '/post/'+id);
+        });
+        $(document).on("click", "#open-delete-confirmation", function () {
+            var  id = $(this).data('id');
+            $('#delete_sales_rep_form').attr('action', '/post/'+id);
         });
     </script>
 @endsection

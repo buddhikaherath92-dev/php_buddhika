@@ -70,5 +70,18 @@ class SalesRepresentativeController extends Controller
         return back();
     }
 
+     /**
+     * Delete a sales representative.
+     *
+     * @param  App\Requests\StoreSalesRepresentativeRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        SalesManagerComment::where('sales_representative_id', $id)->delete();
+        SalesRepresentative::find($id)->delete();
+        return back();
+    }
+
 
 }
